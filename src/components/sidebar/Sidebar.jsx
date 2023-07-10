@@ -21,64 +21,67 @@ const Sidebar = () => {
         <span className="logo">faz.admin</span>
       </div>
       <hr />
-      <p className="title">MAIN</p>
       <div className="center">
         <ul>
+          <p className="title">MAIN</p>
           <li>
-            <Dashboard />
+            <Dashboard className="icon"/>
             <span>Dashboard</span>
           </li>
           <p className="title">LISTS</p>
           <li>
-            <PersonOutlineOutlined className="icon"/>
+            <PersonOutlineOutlined className="icon" />
             <span>Users</span>
           </li>
           <li>
-            <Store className="icon"/>
+            <Store className="icon" />
             <span>Products</span>
           </li>
           <li>
-            <CreditCard className="icon"/>
+            <CreditCard className="icon" />
             <span>Orders</span>
           </li>
           <li>
-            <LocalShipping className="icon"/>
+            <LocalShipping className="icon" />
             <span>Delivery</span>
           </li>
           <p className="title">USEFUL</p>
           <li>
-            <Poll className="icon"/>
+            <Poll className="icon" />
             <span>Stats</span>
           </li>
           <li>
-            <NotificationsNoneOutlined className="icon"/>
+            <NotificationsNoneOutlined className="icon" />
             <span>Notification</span>
           </li>
           <p className="title">SERVICE</p>
           <li>
-            <SettingsSystemDaydreamOutlined className="icon"/>
+            <SettingsSystemDaydreamOutlined className="icon" />
             <span>System Health</span>
           </li>
           <li>
-            <PsychologyOutlined className="icon"/>
+            <PsychologyOutlined className="icon" />
             <span>Logs</span>
           </li>
           <li>
-            <Settings className="icon"/>
+            <Settings className="icon" />
             <span>Settings</span>
           </li>
           <p className="title">USER</p>
           <li>
-            <AccountCircle className="icon"/>
+            <AccountCircle className="icon" />
             <span>Profile</span>
           </li>
           <li>
-            <Logout className="icon"/>
+            <Logout className="icon" />
             <span>Logout</span>
           </li>
         </ul>
       </div>
-      <div className="bottom">color option</div>
+      <div className="bottom">
+        <div className="colorOption"></div>
+        <div className="colorOption"></div>
+      </div>
     </div>
   );
 };
