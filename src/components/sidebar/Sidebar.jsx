@@ -13,30 +13,37 @@ import {
   Store,
 } from "@mui/icons-material";
 import "./sidebar.scss";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="top">
-        <span className="logo">faz.admin</span>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <span className="logo">faz.admin</span>
+        </Link>
       </div>
       <hr />
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
           <li>
-            <Dashboard className="icon"/>
+            <Dashboard className="icon" />
             <span>Dashboard</span>
           </li>
           <p className="title">LISTS</p>
+        <Link to="/users" style={{ textDecoration: "none" }}>
           <li>
             <PersonOutlineOutlined className="icon" />
             <span>Users</span>
           </li>
+          </Link>
+        <Link to="/products" style={{ textDecoration: "none" }}>
           <li>
             <Store className="icon" />
             <span>Products</span>
           </li>
+          </Link>
           <li>
             <CreditCard className="icon" />
             <span>Orders</span>
