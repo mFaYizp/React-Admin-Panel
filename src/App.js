@@ -11,7 +11,9 @@ import { DarkModeContext } from "./context/darkModeContext";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
-
+  const admin = JSON.parse(
+    JSON.parse(localStorage.getItem("persist:root")).user
+  ).currentUser.isAdmin;
   return (
     <div className={darkMode ? "app dark" : "app"}>
       <BrowserRouter>
@@ -19,22 +21,28 @@ function App() {
           <Route path="/">
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
-            <Route path="users">
-              <Route index element={<List />} />
-              <Route path=":userId" element={<Single />} />
-              <Route
-                path="new"
-                element={<New inputs={userInputs} title="Add New User" />}
-              />
-            </Route>
-            <Route path="products">
-              <Route index element={<List />} />
-              <Route path=":productId" element={<Single />} />
-              <Route
-                path="new"
-                element={<New inputs={productInputs} title="Add New Product" />}
-              />
-            </Route>
+            {admin && (
+              <>
+                <Route path="users">
+                  <Route index element={<List />} />
+                  <Route path=":userId" element={<Single />} />
+                  <Route
+                    path="new"
+                    element={<New inputs={userInputs} title="Add New User" />}
+                  />
+                </Route>
+                <Route path="products">
+                  <Route index element={<List />} />
+                  <Route path=":productId" element={<Single />} />
+                  <Route
+                    path="new"
+                    element={
+                      <New inputs={productInputs} title="Add New Product" />
+                    }
+                  />
+                </Route>
+              </>
+            )}
           </Route>
         </Routes>
       </BrowserRouter>
