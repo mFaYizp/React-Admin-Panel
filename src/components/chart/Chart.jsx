@@ -10,15 +10,6 @@ import {
 } from "recharts";
 import { userRequest } from "../../requestMethods";
 
-const data = [
-  { name: "January", Total: 1200 },
-  { name: "February", Total: 2100 },
-  { name: "March", Total: 800 },
-  { name: "April", Total: 1600 },
-  { name: "May", Total: 900 },
-  { name: "June", Total: 1700 },
-];
-
 const Chart = ({ aspect, title }) => {
   const [userStats, setUserStats] = useState([]);
 
@@ -31,7 +22,7 @@ const Chart = ({ aspect, title }) => {
       "May",
       "Jun",
       "Jul",
-      "Agu",
+      "Aug",
       "Sep",
       "Oct",
       "Nov",
@@ -39,23 +30,20 @@ const Chart = ({ aspect, title }) => {
     ],
     []
   );
-console.log(userStats);
   useEffect(() => {
     const getStats = async () => {
       try {
         const res = await userRequest.get("/users/stats");
-        res.data.map((item) => 
+        res.data.map((item) =>
           setUserStats((prev) => [
             ...prev,
             { name: MONTHS[item._id - 1], "Active User": item.total },
-          ]),
+          ])
         );
       } catch {}
     };
     getStats();
   }, [MONTHS]);
-  console.log(userStats);
-
   return (
     <div className="chart">
       <div className="title">{title}</div>
