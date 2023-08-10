@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { userRequest } from "../../requestMethods";
 
 const Featured = () => {
-  const [income, setIncome] = useState([]);
+  const [incomes, setIncome] = useState([]);
   const [percentage, setPercentage] = useState(0);
   useEffect(() => {
     const getIncome = async () => {
@@ -22,8 +22,7 @@ const Featured = () => {
     };
     getIncome();
   }, []);
-  console.log(income[1]);
-  console.log(percentage);
+
   return (
     <div className="featured">
       <div className="top">
@@ -38,8 +37,8 @@ const Featured = () => {
             strokeWidth={5}
           />
         </div>
-        <p className="title">Total sales made this month</p>
-        <p className="amount">${income.total}</p>
+        <p className="title" >Total sales made this month</p>
+        <p className="amount" >${incomes[1]?.total}</p>
         <p className="desc">
           Previous transaction processing. Last payments may not be included.
         </p>
