@@ -1,6 +1,7 @@
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
-import List from "./pages/list/List";
+import List from "./pages/userList/List";
+import ProductsList from "./pages/productsList/ProductsList";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -24,7 +25,7 @@ function App() {
             {admin && (
               <>
                 <Route path="users">
-                  <Route index element={<List />} />
+                  <Route index element={<List title="Add New User" />} />
                   <Route path=":userId" element={<Single />} />
                   <Route
                     path="new"
@@ -32,7 +33,7 @@ function App() {
                   />
                 </Route>
                 <Route path="products">
-                  <Route index element={<List />} />
+                  <Route index element={<ProductsList title="Add New Product" />} />
                   <Route path=":productId" element={<Single />} />
                   <Route
                     path="new"

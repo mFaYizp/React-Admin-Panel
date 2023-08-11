@@ -1,7 +1,7 @@
 import "./login.scss";
 import { useDispatch } from "react-redux";
 import React, { useState } from "react";
-import login from "../../Redux/apiCalls";
+import {login} from "../../Redux/apiCalls";
 
 const Login = () => {
   const [username, setUsername] = useState("");
