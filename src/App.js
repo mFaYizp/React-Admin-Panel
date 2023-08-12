@@ -1,6 +1,6 @@
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
-import List from "./pages/userList/List";
+import UserList from "./pages/userList/UserList";
 import ProductsList from "./pages/productsList/ProductsList";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
@@ -25,7 +25,7 @@ function App() {
             {admin && (
               <>
                 <Route path="users">
-                  <Route index element={<List title="Add New User" />} />
+                  <Route index element={<UserList />} />
                   <Route path=":userId" element={<Single />} />
                   <Route
                     path="new"
@@ -33,7 +33,7 @@ function App() {
                   />
                 </Route>
                 <Route path="products">
-                  <Route index element={<ProductsList title="Add New Product" />} />
+                  <Route index element={<ProductsList />} />
                   <Route path=":productId" element={<Single />} />
                   <Route
                     path="new"

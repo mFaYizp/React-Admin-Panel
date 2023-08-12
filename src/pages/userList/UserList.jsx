@@ -1,25 +1,17 @@
-import "./productsList.scss";
+import "./userList.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import { useEffect } from "react";
-import { productColumns } from "../../datatableSource";
 import { Link } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct, getProducts } from "../../Redux/apiCalls";
+import { useState } from "react";
+import { userColumns, userRows } from "../../datatableSource";
 
-const List = () => {
-  const dispatch = useDispatch();
-  const products = useSelector((state) => state.product.products);
+const List = (title) => {
+  const [data, setData] = useState(userRows);
 
   const handleDelete = (id) => {
-deleteProduct(id,dispatch)
+    setData(data.filter((item) => item.id !== id));
   };
-
-  useEffect(() => {
-    getProducts(dispatch);
-  }, [dispatch]);
-
   const actionColumn = [
     {
       field: "action",
@@ -28,12 +20,12 @@ deleteProduct(id,dispatch)
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/products/test" style={{ textDecoration: "none" }}>
+            <Link to="/users/test" style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
             <div
               className="deleteButton"
-              onClick={() => handleDelete(params.row._id)}
+              onClick={() => handleDelete(params.row.id)}
             >
               Delete
             </div>
@@ -49,16 +41,15 @@ deleteProduct(id,dispatch)
         <Navbar />
         <div className="datatable">
           <div className="datatableTitle">
-            Add New Product
-            <Link to="/products/new" className="link">
+            Add New User
+            <Link to="/users/new" className="link">
               Add New
             </Link>
           </div>
           <DataGrid
             className="datagrid"
-            rows={products}
-            columns={productColumns.concat(actionColumn)}
-            getRowId={(row) => row._id}
+            rows={data}
+            columns={userColumns.concat(actionColumn)}
             pageSizeOptions={[5, 10]}
             checkboxSelection
           />
