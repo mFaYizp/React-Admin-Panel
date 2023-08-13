@@ -13,7 +13,7 @@ const List = () => {
   const products = useSelector((state) => state.product.products);
 
   const handleDelete = (id) => {
-deleteProduct(id,dispatch)
+    deleteProduct(id, dispatch);
   };
 
   useEffect(() => {
@@ -28,8 +28,11 @@ deleteProduct(id,dispatch)
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/products/test" style={{ textDecoration: "none" }}>
-              <div className="viewButton">View</div>
+            <Link
+              to={"/products/test" + params.row._id}
+              style={{ textDecoration: "none" }}
+            >
+              <div className="viewButton">Edit</div>
             </Link>
             <div
               className="deleteButton"
