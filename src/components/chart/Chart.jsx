@@ -1,4 +1,3 @@
-import { useEffect, useMemo, useState } from "react";
 import "./chart.scss";
 import {
   AreaChart,
@@ -8,42 +7,9 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { userRequest } from "../../requestMethods";
 
-const Chart = ({ aspect, title }) => {
-  const [userStats, setUserStats] = useState([]);
-
-  const MONTHS = useMemo(
-    () => [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
-    []
-  );
-  useEffect(() => {
-    const getStats = async () => {
-      try {
-        const res = await userRequest.get("/users/stats");
-        res.data.map((item) =>
-          setUserStats((prev) => [
-            ...prev,
-            { name: MONTHS[item._id - 1], "Active User": item.total },
-          ])
-        );
-      } catch {}
-    };
-    getStats();
-  }, [MONTHS]);
+const Chart = ({ data,dataKey,aspect, title }) => {
+  
   return (
     <div className="chart">
       <div className="title">{title}</div>
@@ -51,7 +17,7 @@ const Chart = ({ aspect, title }) => {
         <AreaChart
           width={730}
           height={250}
-          data={userStats}
+          data={data}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >
           <defs>
@@ -65,7 +31,7 @@ const Chart = ({ aspect, title }) => {
           <Tooltip />
           <Area
             type="monotone"
-            dataKey="Active User"
+            dataKey={dataKey}
             stroke="#8884d8"
             fillOpacity={1}
             fill="url(#total)"

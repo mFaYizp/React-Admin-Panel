@@ -71,6 +71,6 @@ export const productInputs = [
     id: 5,
     label: "Stock",
     type: "text",
-    placeholder: "in stock",
+    placeholder: "In stock",
   },
 ];

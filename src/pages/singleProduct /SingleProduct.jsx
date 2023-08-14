@@ -2,54 +2,126 @@ import "./singleProduct.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import Chart from "../../components/chart/Chart";
-import List from "../../components/table/Table";
+import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Publish } from "@mui/icons-material";
+import { useEffect, useMemo, useState } from "react";
+import { userRequest } from "../../requestMethods";
 
 const SingleProduct = () => {
+  const location = useLocation();
+  const productId = location.pathname.split("/")[2];
+  const [pStats, setPStats] = useState([]);
+
+  const product = useSelector((state) =>
+    state.product.products.find((product) => product._id === productId)
+  );
+
+  const MONTHS = useMemo(
+    () => [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
+    []
+  );
+
+  useEffect(() => {
+    const getStats = async () => {
+      try {
+        const res = await userRequest.get("/orders/income?pid=" + productId);
+        const list = res.data.sort((a, b) => {
+          return a._id - b._id;
+        });
+        list.map((item) =>
+          setPStats((prev) => [
+            ...prev,
+            { name: MONTHS[item._id - 1], Sales: item.total },
+          ])
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getStats();
+  }, [productId, MONTHS]);
+
   return (
     <div className="single">
       <Sidebar />
       <div className="singleContainer">
         <Navbar />
+        <div className="productTitleContainer">
+          <h1 className="productTitle">Product</h1>
+          <Link to="/products/new">
+            <button className="productAddButton">Add New</button>
+          </Link>
+        </div>
         <div className="top">
           <div className="left">
-            <div className="editButton">Edit</div>
-            <h1 className="title">Product</h1>
             <div className="item">
-              <img
-                src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-                alt="userProfile"
-                className="itemImg"
-              />
+              <img src={product.img} alt="userProfile" className="itemImg" />
               <div className="details">
-                <h1 className="itemTitle">Mac book</h1>
+                <h1 className="itemTitle">{product.title}</h1>
                 <div className="detailItem">
                   <span className="itemKey">ID:</span>
-                  <span className="itemValue">suladev@gmail.com</span>
+                  <span className="itemValue">{product._id}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Sales:</span>
-                  <span className="itemValue">+44 3456 78 96</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Active:</span>
-                  <span className="itemValue">
-                    Lodge, Queen's Gate,
-                  </span>
+                  <span className="itemValue">3456</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">In Stock:</span>
-                  <span className="itemValue">UK</span>
+                  <span className="itemValue">{product.inStock}</span>
                 </div>
               </div>
             </div>
           </div>
           <div className="right">
-            <Chart aspect={3 / 1} title="User spending (Last 6 Month)" />
+            <Chart
+              data={pStats}
+              dataKey="Sales"
+              aspect={3 / 1}
+              title="Sales Performance"
+            />
           </div>
         </div>
         <div className="bottom">
-        <h1 className="title">Last Transactions</h1>
-          <List />
+          <form className="productForm">
+            <div className="productFormLeft">
+              <label>Product Name</label>
+              <input type="text" placeholder={product.title} />
+              <label>Product Description</label>
+              <input type="text" placeholder={product.desc} />
+              <label>Price</label>
+              <input type="text" placeholder={product.price} />
+              <label>In Stock</label>
+              <select name="inStock" id="idStock">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+            </div>
+            <div className="productFormRight">
+              <div className="productUpload">
+                <img src={product.img} alt="" className="productUploadImg" />
+                <label for="file">
+                  <Publish />
+                </label>
+                <input type="file" id="file" style={{ display: "none" }} />
+              </div>
+              <button className="productButton">Update</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

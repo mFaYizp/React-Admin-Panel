@@ -29,7 +29,7 @@ const List = () => {
         return (
           <div className="cellAction">
             <Link
-              to={"/products/test" + params.row._id}
+              to={"/products/" + params.row._id}
               style={{ textDecoration: "none" }}
             >
               <div className="viewButton">Edit</div>
