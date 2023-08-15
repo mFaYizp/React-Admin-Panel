@@ -3,7 +3,7 @@ import Login from "./pages/login/Login";
 import UserList from "./pages/userList/UserList";
 import ProductsList from "./pages/productsList/ProductsList";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { productInputs, userInputs } from "./formSource";
+import { userInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";

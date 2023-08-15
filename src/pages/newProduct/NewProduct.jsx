@@ -3,13 +3,21 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { DriveFolderUploadOutlined } from "@mui/icons-material";
 import { useState } from "react";
-import { getStorage, ref, getDownloadURL,uploadBytesResumable } from "firebase/storage";
+import { useDispatch } from "react-redux";
+import {
+  getStorage,
+  ref,
+  getDownloadURL,
+  uploadBytesResumable,
+} from "firebase/storage";
 import app from "../../firebase";
+import { addProduct } from "../../Redux/apiCalls";
 
 const NewProduct = () => {
   const [file, setFile] = useState("");
   const [inputs, setInputs] = useState({});
   const [cat, setCat] = useState([]);
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setInputs((prev) => {
@@ -56,7 +64,8 @@ const NewProduct = () => {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log("File available at", downloadURL);
+          const product = { ...inputs, img: downloadURL, categories: cat };
+          addProduct(product, dispatch);
         });
       }
     );

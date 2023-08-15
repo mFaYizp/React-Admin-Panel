@@ -114,7 +114,7 @@ const SingleProduct = () => {
             <div className="productFormRight">
               <div className="productUpload">
                 <img src={product.img} alt="" className="productUploadImg" />
-                <label for="file">
+                <label htmlFor="file">
                   <Publish />
                 </label>
                 <input type="file" id="file" style={{ display: "none" }} />
