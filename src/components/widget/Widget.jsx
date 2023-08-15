@@ -1,39 +1,74 @@
 import {
   AccountBalanceWalletOutlined,
+  AttachMoneyOutlined,
+  Checklist,
   KeyboardArrowUp,
   MonetizationOnOutlined,
   PersonOutlineOutlined,
   ShoppingCartOutlined,
+  VerifiedOutlined,
 } from "@mui/icons-material";
 import "./widget.scss";
+import { useEffect, useState } from "react";
+import { userRequest } from "../../requestMethods";
 
-const Widget = ({ type }) => {
-  let data;
+const Widget = () => {
+  const [users, setUsers] = useState([]);
+  const [incomes, setIncome] = useState([]);
+  const [percentage, setPercentage] = useState(0);
 
-  // temporary
-  const amount = 100;
-  const diff = 20;
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const res = await userRequest("users");
+        setUsers(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUsers();
+  }, []);
 
-  switch (type) {
-    case "user":
-      data = {
-        title: "USERS",
-        isMoney: false,
-        link: "See all users",
-        icon: (
+  useEffect(() => {
+    const getIncome = async () => {
+      try {
+        const res = await userRequest.get("orders/income");
+        setIncome(res.data);
+      } catch {}
+    };
+    getIncome();
+  }, []);
+const sum = incomes.reduce((accumulator,currentValue)=>{
+  return accumulator + currentValue.total
+},0)
+
+
+  return (
+    <div className="widgets">
+      <div className="widgetItem">
+        <div className="left">
+          <span className="title">USERS</span>
+          <span className="counter">{users.length}</span>
+        </div>
+        <div className="right">
+          <div className="percentage positive">
+            <VerifiedOutlined />
+          </div>
           <PersonOutlineOutlined
             className="icon"
             style={{ color: "crimson", backgroundColor: "rgba(255,0,0,0.2)" }}
           />
-        ),
-      };
-      break;
-    case "order":
-      data = {
-        title: "ORDERS",
-        isMoney: false,
-        link: "View all orders",
-        icon: (
+        </div>
+      </div>
+      <div className="widgetItem">
+        <div className="left">
+          <span className="title">ORDERS</span>
+          <span className="counter">354</span>
+        </div>
+        <div className="right">
+          <div className="percentage positive">
+            <Checklist />
+          </div>
           <ShoppingCartOutlined
             className="icon"
             style={{
@@ -41,28 +76,33 @@ const Widget = ({ type }) => {
               backgroundColor: "rgba(218, 165, 32, 0.2)",
             }}
           />
-        ),
-      };
-      break;
-    case "earning":
-      data = {
-        title: "EARNINGS",
-        isMoney: false,
-        link: "View net earnings",
-        icon: (
+        </div>
+      </div>
+      <div className="widgetItem">
+        <div className="left">
+          <span className="title">EARNINGS</span>
+          <span className="counter">{sum} $</span>
+        </div>
+        <div className="right">
+          <div className="percentage positive">
+           <AttachMoneyOutlined />
+          </div>
           <MonetizationOnOutlined
             className="icon"
             style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green" }}
           />
-        ),
-      };
-      break;
-    case "balance":
-      data = {
-        title: "BALANCE",
-        isMoney: false,
-        link: "See details",
-        icon: (
+        </div>
+      </div>
+      <div className="widgetItem">
+        <div className="left">
+          <span className="title">BALANCE</span>
+          <span className="counter">354$</span>
+        </div>
+        <div className="right">
+          <div className="percentage positive">
+            <KeyboardArrowUp />
+            {} %
+          </div>
           <AccountBalanceWalletOutlined
             className="icon"
             style={{
@@ -70,27 +110,7 @@ const Widget = ({ type }) => {
               color: "purple",
             }}
           />
-        ),
-      };
-      break;
-    default:
-      break;
-  }
-  return (
-    <div className="widget">
-      <div className="left">
-        <span className="title">{data.title}</span>
-        <span className="counter">
-          {data.isMoney && "$"} {amount}
-        </span>
-        <span className="link">{data.link}</span>
-      </div>
-      <div className="right">
-        <div className="percentage positive">
-          <KeyboardArrowUp />
-          {diff} %
         </div>
-        {data.icon}
       </div>
     </div>
   );

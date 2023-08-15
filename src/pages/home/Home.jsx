@@ -9,7 +9,6 @@ import { userRequest } from "../../requestMethods";
 import { useEffect, useMemo, useState } from "react";
 
 const Home = () => {
-
   const [userStats, setUserStats] = useState([]);
 
   const MONTHS = useMemo(
@@ -49,15 +48,20 @@ const Home = () => {
       <Sidebar />
       <div className="homeContainer">
         <Navbar />
-        <div className="widgets">
-          <Widget type="user" />
-          <Widget type="order" />
+        <div className="widget">
+          <Widget />
+          {/* <Widget type="order" />
           <Widget type="earning" />
-          <Widget type="balance" />
+          <Widget type="balance" /> */}
         </div>
         <div className="charts">
           <Featured />
-          <Chart data={userStats} dataKey={"Active User"} aspect={2 / 1} title="User Analytics (6 Month):" />
+          <Chart
+            data={userStats}
+            dataKey={"Active User"}
+            aspect={2 / 1}
+            title="User Analytics (6 Month):"
+          />
         </div>
         <div className="listContainer">
           <div className="listTitle">Latest Transactions</div>

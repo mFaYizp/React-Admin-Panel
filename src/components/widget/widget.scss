@@ -1,53 +1,58 @@
-.widget {
+.widgets {
   display: flex;
-  justify-content: space-between;
-  flex: 1;
-  padding: 10px;
-  -webkit-box-shadow: 2px 4px 10px -2px #2e2c2c;
-  box-shadow: 2px 4px 10px -2px #a09f9f;
-  border-radius: 10px;
-  height: 100px;
+  width: 100%;
+  
+  .widgetItem {
+    margin: 0px 5px;
+    padding: 10px;
+    -webkit-box-shadow: 2px 4px 10px -2px #2e2c2c;
+    box-shadow: 2px 4px 10px -2px #a09f9f;
+    border-radius: 10px;
+    height: 120px;
+    flex: 1;
 
-  .left,
-  .right {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    .left,
+    .right {
+      height: 100%;
+      width: 50%;
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
 
-    .title {
-      font-weight: bold;
-      font-size: 14px;
-      color: rgb(160, 160, 160);
-    }
-    .counter {
-      font-size: 28px;
-      font-weight: 300;
-    }
-
-    .link {
-      width: max-content;
-      font-size: 12px;
-      border-bottom: 1px solid gray;
-    }
-
-    .percentage {
-      display: flex;
-      align-items: center;
-      font-size: 14px;
-
-      &.positive {
-        color: green;
+      .title {
+        font-weight: bold;
+        font-size: 16px;
+        color: rgb(160, 160, 160);
       }
-      &.negative {
-        color: red;
+      .counter {
+        font-size: 28px;
+        font-weight: 300;
+        position: absolute;
+        top: 40px;
       }
-    }
 
-    .icon {
-      font-size: 18px;
-      padding: 5px;
-       border-radius: 5px;
-      align-self: flex-end;
+      .percentage {
+        display: inline-flex;
+        align-self: flex-end;
+        align-items: center;
+        font-size: 14px;
+        color: rgb(9, 162, 9);
+
+        &.positive {
+          color: green;
+        }
+        &.negative {
+          color: red;
+        }
+      }
+
+      .icon {
+        font-size: 18px;
+        padding: 5px;
+        border-radius: 5px;
+        align-self: flex-end;
+      }
     }
   }
 }
