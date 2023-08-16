@@ -15,7 +15,7 @@ import { userRequest } from "../../requestMethods";
 const Widget = () => {
   const [users, setUsers] = useState([]);
   const [incomes, setIncome] = useState([]);
-  const [percentage, setPercentage] = useState(0);
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -34,15 +34,24 @@ const Widget = () => {
       try {
         const res = await userRequest.get("orders/income");
         setIncome(res.data);
-      } catch {}
+      } catch (err) {console.log(err);}
     };
     getIncome();
   }, []);
-const sum = incomes.reduce((accumulator,currentValue)=>{
-  return accumulator + currentValue.total
-},0)
+  const sum = incomes.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue.total;
+  }, 0);
 
-
+  useEffect(() => {
+    const getOrders = async () => {
+      try {
+        const res = await userRequest.get("orders");
+        setOrders(res.data);
+      } catch (err) {console.log(err);}
+    };
+    getOrders()
+  },[]);
+console.log(orders.length);
   return (
     <div className="widgets">
       <div className="widgetItem">
@@ -63,7 +72,7 @@ const sum = incomes.reduce((accumulator,currentValue)=>{
       <div className="widgetItem">
         <div className="left">
           <span className="title">ORDERS</span>
-          <span className="counter">354</span>
+          <span className="counter">{orders.length}</span>
         </div>
         <div className="right">
           <div className="percentage positive">
@@ -85,7 +94,7 @@ const sum = incomes.reduce((accumulator,currentValue)=>{
         </div>
         <div className="right">
           <div className="percentage positive">
-           <AttachMoneyOutlined />
+            <AttachMoneyOutlined />
           </div>
           <MonetizationOnOutlined
             className="icon"

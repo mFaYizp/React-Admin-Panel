@@ -50,9 +50,6 @@ const Home = () => {
         <Navbar />
         <div className="widget">
           <Widget />
-          {/* <Widget type="order" />
-          <Widget type="earning" />
-          <Widget type="balance" /> */}
         </div>
         <div className="charts">
           <Featured />
