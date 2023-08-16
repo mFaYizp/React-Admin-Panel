@@ -23,9 +23,12 @@ const List = (title) => {
     getUsers();
   }, []);
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
-  };
+  const blockedUsers = users.filter(user => !user.isAdmin);
+
+
+  // const handleDelete = (_id) => {
+  //   setData(data.filter((item) => item.id !== _id));
+  // };
   const actionColumn = [
     {
       field: "action",
@@ -34,15 +37,15 @@ const List = (title) => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
+            <Link to={"/users/" + params.row._id} style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
-            <div
+            {/* <div
               className="deleteButton"
               onClick={() => handleDelete(params.row.id)}
             >
               Delete
-            </div>
+            </div> */}
           </div>
         );
       },
@@ -62,8 +65,9 @@ const List = (title) => {
           </div>
           <DataGrid
             className="datagrid"
-            rows={data}
+            rows={blockedUsers}
             columns={userColumns.concat(actionColumn)}
+            getRowId={(row) => row._id}
             pageSizeOptions={[5, 10]}
             checkboxSelection
           />

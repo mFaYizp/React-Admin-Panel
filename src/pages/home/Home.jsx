@@ -10,6 +10,7 @@ import { useEffect, useMemo, useState } from "react";
 
 const Home = () => {
   const [userStats, setUserStats] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   const MONTHS = useMemo(
     () => [
@@ -43,6 +44,16 @@ const Home = () => {
     getStats();
   }, [MONTHS]);
 
+  useEffect(() => {
+    const getOrders = async () => {
+      try {
+        const res = await userRequest.get("orders");
+        setOrders(res.data);
+      } catch {}
+    };
+    getOrders();
+  }, []);
+
   return (
     <div className="home">
       <Sidebar />
@@ -62,7 +73,7 @@ const Home = () => {
         </div>
         <div className="listContainer">
           <div className="listTitle">Latest Transactions</div>
-          <List />
+          <List data={orders} />
         </div>
       </div>
     </div>

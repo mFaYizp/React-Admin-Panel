@@ -102,25 +102,6 @@ console.log(orders.length);
           />
         </div>
       </div>
-      <div className="widgetItem">
-        <div className="left">
-          <span className="title">BALANCE</span>
-          <span className="counter">354$</span>
-        </div>
-        <div className="right">
-          <div className="percentage positive">
-            <KeyboardArrowUp />
-            {} %
-          </div>
-          <AccountBalanceWalletOutlined
-            className="icon"
-            style={{
-              backgroundColor: "rgba(128, 0, 128, 0.2)",
-              color: "purple",
-            }}
-          />
-        </div>
-      </div>
     </div>
   );
 };

@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { userRequest } from "../../requestMethods";
 import { format } from "timeago.js";
 
-const List = () => {
+const List = ({data}) => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const List = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {orders.map((order, index) => (
+          {data.map((order, index) => (
             <TableRow key={index}>
               <TableCell className="tableCell">{order._id}</TableCell>
               <TableCell className="tableCell">
